@@ -1,0 +1,92 @@
+﻿@model List<ResturantSystem.Models.Enrollment>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sn = 0;
+}
+<style>
+    .background {
+        background-color: white;
+    }
+
+    .btn {
+        font-weight: 500;
+        color: white;
+    }
+
+    .card-title {
+        font-size: 20px;
+        color: white;
+    }
+</style>
+<div class="background">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2 card-warning">
+                <div class="card-header">
+                    <h4 class="card-title  ">Customer Detail</h4>
+
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+
+                        <tr>
+                            <th>SN</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                        @foreach (var data in Model)
+                        {
+                        <tr>
+                            <td>@(++sn)</td>
+                            <td>@(data.FirstName)  </td>
+                            <td>@(data.LastName)  </td>
+                            <td>@(data.UserName)  </td>
+                            <td>@(data.Email)  </td>
+                            <td>@(data.Phone)  </td>
+                            <td>
+                                @*<a href="@Url.Action("Status", new {ID=data.ID})"><span class="fa-solid fa-circle-xmark text-green fa-2x"></span></a>*@
+                                <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal_@data.ID"><span class="fa-solid fa-circle-xmark text-green fa-2x"></span></a>
+                                <div class="modal fade" id="exampleModal_@data.ID" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Block </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Do you want to Block ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <a type="button" href="@Url.Action("Status","Customer", new {Id=data.ID})" class="btn btn-danger">Confirm</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+</div>
+
